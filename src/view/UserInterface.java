@@ -26,7 +26,8 @@ public class UserInterface {
             Scanner in = new Scanner(System.in);
             command = in.nextLine();
             fileContent = controller.readFile(command);
-            controller.calculateResult(fileContent);
+            if (fileContent != null)
+                controller.calculateResult(fileContent);
         }
     }
 

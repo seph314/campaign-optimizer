@@ -1,19 +1,19 @@
-package model;
+package common;
 
-public class CustomerDetails {
+public class CustomerCampaignDTO {
     private String customerName;
     private int impressionsPerCampaign;
     private int pricePerCampaign;
     private int valuePerImpression;
 
-    public CustomerDetails(String customerName, int impressionsPerCampaign, int pricePerCampaign) {
+    public CustomerCampaignDTO(String customerName, int impressionsPerCampaign, int pricePerCampaign) {
         this.customerName = customerName;
         this.impressionsPerCampaign = impressionsPerCampaign;
         this.pricePerCampaign = pricePerCampaign;
         this.valuePerImpression = pricePerCampaign / impressionsPerCampaign;
     }
 
-    public CustomerDetails() {
+    public CustomerCampaignDTO() {
     }
 
     public String getCustomerName() {

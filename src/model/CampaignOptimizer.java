@@ -1,20 +1,20 @@
 package model;
 
+import common.CustomerCampaignDTO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CampaignOptimizer {
 
     private List<String> result;
-
     public List<String> optimize(List<String> fileContent){
 
         // listOfCompanyDetails will contain all companies in the form of list of strings
         List<List<String>> listOfCompanyDetails = new ArrayList<>();
-        List<CustomerDetails> listOfCustomerDetails = new ArrayList<>();
+        List<CustomerCampaignDTO> listOfCustomerDetails = new ArrayList<>();
 
         for (String company : fileContent){
             System.out.println(company);
@@ -30,7 +30,7 @@ public class CampaignOptimizer {
 //        while(iterator.hasNext()){
 //            List<String> details = iterator.next();
 //            if (details.size() == 3){
-//                CustomerDetails customerDetails = new CustomerDetails();
+//                CustomerCampaignDTO customerDetails = new CustomerCampaignDTO();
 //                customerDetails.setCustomerName(details.get(0));
 //                customerDetails.setImpressionsPerCampaign(Integer.valueOf(details.get(1)));
 //                customerDetails.setPricePerCampaign(Integer.valueOf(details.get(2)));
@@ -42,7 +42,7 @@ public class CampaignOptimizer {
         // convert to a list of CustomerDetail objects
         for (List<String> companyDetails : listOfCompanyDetails){
             if (companyDetails.size() == 3){
-                CustomerDetails customerDetails = new CustomerDetails();
+                CustomerCampaignDTO customerDetails = new CustomerCampaignDTO();
                 customerDetails.setCustomerName(companyDetails.get(0));
                 customerDetails.setImpressionsPerCampaign(Integer.valueOf(companyDetails.get(1)));
                 customerDetails.setPricePerCampaign(Integer.valueOf(companyDetails.get(2)));
@@ -51,18 +51,18 @@ public class CampaignOptimizer {
             }
         }
 
-        System.out.println(listOfCustomerDetails.size() + String.valueOf(listOfCustomerDetails.get(0).getCustomerName()));
-
-        // add value per impression for each company
-        for (List<String> companyDetails : listOfCompanyDetails){
-            // skip the first one containing total number of impressions
-            if (companyDetails.size() == 3){
-                double valuePerImpression = Double.parseDouble(companyDetails.get(2))/Double.parseDouble(companyDetails.get(1));
-                companyDetails.add(String.valueOf(valuePerImpression));
-            }
-        }
-
-        System.out.println(listOfCompanyDetails);
+//        System.out.println(listOfCustomerDetails.size() + String.valueOf(listOfCustomerDetails.get(0).getCustomerName()));
+//
+//        // add value per impression for each company
+//        for (List<String> companyDetails : listOfCompanyDetails){
+//            // skip the first one containing total number of impressions
+//            if (companyDetails.size() == 3){
+//                double valuePerImpression = Double.parseDouble(companyDetails.get(2))/Double.parseDouble(companyDetails.get(1));
+//                companyDetails.add(String.valueOf(valuePerImpression));
+//            }
+//        }
+//
+//        System.out.println(listOfCompanyDetails);
 
 
 
