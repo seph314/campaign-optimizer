@@ -1,17 +1,15 @@
 package common;
 
-public class CustomerCampaignDTO {
+
+public class CustomerCampaignDTO implements Comparable<Object> {
+
     private String customerName;
     private int impressionsPerCampaign;
     private int pricePerCampaign;
-    private int valuePerImpression;
-
-    public CustomerCampaignDTO(String customerName, int impressionsPerCampaign, int pricePerCampaign) {
-        this.customerName = customerName;
-        this.impressionsPerCampaign = impressionsPerCampaign;
-        this.pricePerCampaign = pricePerCampaign;
-        this.valuePerImpression = pricePerCampaign / impressionsPerCampaign;
-    }
+    private double valuePerImpression;
+    private int numberOfCampaigns;
+    private int totalImpressionForCustomer;
+    private int totalRevinueForCustomer;
 
     public CustomerCampaignDTO() {
     }
@@ -40,11 +38,50 @@ public class CustomerCampaignDTO {
         this.pricePerCampaign = pricePerCampaign;
     }
 
-    public int getValuePerImpression() {
+    public double getValuePerImpression() {
         return valuePerImpression;
     }
 
-    public void calculateValuePerImpression() {
-        this.valuePerImpression = pricePerCampaign / impressionsPerCampaign;
+    public void setValuePerImpression() {
+//        System.out.println(pricePerCampaign + " " + impressionsPerCampaign);
+        this.valuePerImpression = (double) pricePerCampaign / (double) impressionsPerCampaign;
+//        System.out.println(valuePerImpression);
+    }
+
+    public int getNumberOfCampaigns() {
+        return numberOfCampaigns;
+    }
+
+    public void setNumberOfCampaigns(int numberOfCampaigns) {
+        this.numberOfCampaigns = numberOfCampaigns;
+    }
+
+    public int getTotalImpressionForCustomer() {
+        return totalImpressionForCustomer;
+    }
+
+    public void setTotalImpressionForCustomer(int totalImpressionForCustomer) {
+        this.totalImpressionForCustomer = totalImpressionForCustomer;
+    }
+
+    public int getTotalRevinueForCustomer() {
+        return totalRevinueForCustomer;
+    }
+
+    public void setTotalRevinueForCustomer(int totalRevinueForCustomer) {
+        this.totalRevinueForCustomer = totalRevinueForCustomer;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        CustomerCampaignDTO customerDetails = (CustomerCampaignDTO) o;
+//        System.out.println(this.valuePerImpression);
+//        System.out.println(customerDetails.valuePerImpression);
+        if (this.valuePerImpression < customerDetails.valuePerImpression)
+            return 1;
+        if (this.valuePerImpression > customerDetails.valuePerImpression)
+            return -1;
+        else
+            return 0;
     }
 }

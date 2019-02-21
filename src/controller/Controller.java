@@ -1,5 +1,6 @@
 package controller;
 
+import common.CustomerCampaignDTO;
 import model.CampaignOptimizer;
 import model.FileHandler;
 
@@ -18,7 +19,7 @@ public class Controller {
         return fileHandler.readFile(fileName);
     }
 
-    public List<String> calculateResult(List<String> fileContent) {
+    public List<CustomerCampaignDTO> calculateResult(List<String> fileContent) {
         return new CampaignOptimizer().optimize(fileContent);
     }
 }

@@ -1,22 +1,23 @@
 package model;
 
 import common.CustomerCampaignDTO;
+import common.SortByValePerImpression;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 public class CampaignOptimizer {
 
-    private List<String> result;
-    public List<String> optimize(List<String> fileContent){
+    private int maxImpressions;
+
+    public List<CustomerCampaignDTO> optimize(List<String> fileContent) {
 
         // listOfCompanyDetails will contain all companies in the form of list of strings
         List<List<String>> listOfCompanyDetails = new ArrayList<>();
         List<CustomerCampaignDTO> listOfCustomerDetails = new ArrayList<>();
 
-        for (String company : fileContent){
+        for (String company : fileContent) {
             System.out.println(company);
             String[] companyArray = company.split("\\s*,\\s*");
             List<String> companyDetails = Arrays.stream(companyArray).collect(Collectors.toList());
@@ -25,48 +26,53 @@ public class CampaignOptimizer {
 
         System.out.println(listOfCompanyDetails);
 
-
-//        Iterator<List<String>> iterator = listOfCompanyDetails.iterator();
-//        while(iterator.hasNext()){
-//            List<String> details = iterator.next();
-//            if (details.size() == 3){
-//                CustomerCampaignDTO customerDetails = new CustomerCampaignDTO();
-//                customerDetails.setCustomerName(details.get(0));
-//                customerDetails.setImpressionsPerCampaign(Integer.valueOf(details.get(1)));
-//                customerDetails.setPricePerCampaign(Integer.valueOf(details.get(2)));
-//                customerDetails.calculateValuePerImpression();
-//                listOfCustomerDetails.add(customerDetails);
-//            }
-//        }
+        //set maxImpressions
+        maxImpressions = Integer.valueOf(listOfCompanyDetails.get(0).get(0));
+//        System.out.println("max impressions " + maxImpressions);
 
         // convert to a list of CustomerDetail objects
-        for (List<String> companyDetails : listOfCompanyDetails){
-            if (companyDetails.size() == 3){
+        for (List<String> companyDetails : listOfCompanyDetails) {
+            if (companyDetails.size() == 3) {
                 CustomerCampaignDTO customerDetails = new CustomerCampaignDTO();
                 customerDetails.setCustomerName(companyDetails.get(0));
                 customerDetails.setImpressionsPerCampaign(Integer.valueOf(companyDetails.get(1)));
                 customerDetails.setPricePerCampaign(Integer.valueOf(companyDetails.get(2)));
-                customerDetails.calculateValuePerImpression();
+                customerDetails.setValuePerImpression();
                 listOfCustomerDetails.add(customerDetails);
             }
         }
 
-//        System.out.println(listOfCustomerDetails.size() + String.valueOf(listOfCustomerDetails.get(0).getCustomerName()));
-//
-//        // add value per impression for each company
-//        for (List<String> companyDetails : listOfCompanyDetails){
-//            // skip the first one containing total number of impressions
-//            if (companyDetails.size() == 3){
-//                double valuePerImpression = Double.parseDouble(companyDetails.get(2))/Double.parseDouble(companyDetails.get(1));
-//                companyDetails.add(String.valueOf(valuePerImpression));
-//            }
+
+//        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
+//            System.out.println(customerDetails.getCustomerName() + " " + customerDetails.getValuePerImpression());
 //        }
-//
-//        System.out.println(listOfCompanyDetails);
 
+        // sort the list by most valuable customer per impression
+        listOfCustomerDetails.sort(new SortByValePerImpression());
 
+        System.out.println("\n");
+        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
+            System.out.println(customerDetails.getCustomerName() + " " + customerDetails.getValuePerImpression());
+    }
 
-        return result;
+        maximizeProfit(listOfCustomerDetails);
+
+        return listOfCustomerDetails;
+    }
+
+    private void maximizeProfit(List<CustomerCampaignDTO> listOfCustomerDetails) {
+
+        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
+            int numberOfCampaigns = maxImpressions / customerDetails.getImpressionsPerCampaign();
+//            System.out.println(numberOfCampaigns);
+            int totalImpressionsForCustomer = numberOfCampaigns * customerDetails.getImpressionsPerCampaign();
+            customerDetails.setNumberOfCampaigns(numberOfCampaigns);
+            customerDetails.setTotalImpressionForCustomer(totalImpressionsForCustomer);
+            customerDetails.setTotalRevinueForCustomer(numberOfCampaigns * customerDetails.getPricePerCampaign());
+
+            //remove used impressions from total
+            maxImpressions = maxImpressions - totalImpressionsForCustomer;
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import common.CustomerCampaignDTO;
 import controller.Controller;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 public class UserInterface {
 
     private Controller controller = new Controller();
-    private List<String> fileContent;
+    private List<CustomerCampaignDTO> listOfCustomerDetails;
 
     /**
      * Takes user input and calls appropriate methods depending on commands
@@ -25,10 +26,27 @@ public class UserInterface {
         while (!command.equalsIgnoreCase("quit")){
             Scanner in = new Scanner(System.in);
             command = in.nextLine();
-            fileContent = controller.readFile(command);
+            List<String> fileContent = controller.readFile(command);
             if (fileContent != null)
-                controller.calculateResult(fileContent);
+                listOfCustomerDetails = controller.calculateResult(fileContent);
+            printResult();
         }
+    }
+
+    private void printResult() {
+        System.out.println("\n");
+        int totalNumberOfImpressions = 0;
+        int totalRevenue = 0;
+        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
+            System.out.println(customerDetails.getCustomerName() +
+                    "," + customerDetails.getNumberOfCampaigns() +
+                    "," + customerDetails.getTotalImpressionForCustomer() +
+                    "," + customerDetails.getTotalRevinueForCustomer()
+            );
+            totalNumberOfImpressions += customerDetails.getTotalImpressionForCustomer();
+            totalRevenue += customerDetails.getTotalRevinueForCustomer();
+        }
+        System.out.println(totalNumberOfImpressions + "," + totalRevenue);
     }
 
     private void showFiles(File[] listOfFiles) {
