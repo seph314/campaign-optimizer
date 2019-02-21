@@ -7,6 +7,9 @@ import model.FileHandler;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Handles all communication between view and model
+ */
 public class Controller {
 
     private FileHandler fileHandler = new FileHandler();

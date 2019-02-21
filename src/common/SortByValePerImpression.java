@@ -2,6 +2,9 @@ package common;
 
 import java.util.Comparator;
 
+/**
+ * Sorts a list of CustomerCampaigns in order of most profitable to least
+ */
 public class SortByValePerImpression implements Comparator<CustomerCampaignDTO>{
 
     @Override

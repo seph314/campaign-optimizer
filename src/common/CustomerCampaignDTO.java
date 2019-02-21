@@ -1,6 +1,10 @@
 package common;
 
-
+/**
+ * A Data Transfer Object used to encapsulate primitive data when send between different layers
+ * Implements Comparable so that we can compare different customer campaigns to each other so
+ * that we can maximize profit by selling to the highest bidder
+ */
 public class CustomerCampaignDTO implements Comparable<Object> {
 
     private String customerName;
@@ -75,8 +79,6 @@ public class CustomerCampaignDTO implements Comparable<Object> {
     @Override
     public int compareTo(Object o) {
         CustomerCampaignDTO customerDetails = (CustomerCampaignDTO) o;
-//        System.out.println(this.valuePerImpression);
-//        System.out.println(customerDetails.valuePerImpression);
         if (this.valuePerImpression < customerDetails.valuePerImpression)
             return 1;
         if (this.valuePerImpression > customerDetails.valuePerImpression)

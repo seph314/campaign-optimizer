@@ -3,14 +3,14 @@ package model;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Get available files in directory and a files content as a list of strings
+ * Lists available files in files directory
+ * Creates a list of Strings from the file, so that we can work with the data in the CampaignOptimizer
  */
 public class FileHandler {
 

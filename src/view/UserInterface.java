@@ -7,13 +7,17 @@ import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This is the applications user interface (via terminal)
+ */
 public class UserInterface {
 
     private Controller controller = new Controller();
     private List<CustomerCampaignDTO> listOfCustomerDetails;
 
     /**
-     * Takes user input and calls appropriate methods depending on commands
+     * Takes user input and reads data from a file
+     * Displays optimized Campaign distribution
      */
     public void commandLineParser(){
 
