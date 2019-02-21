@@ -47,9 +47,7 @@ public class CustomerCampaignDTO implements Comparable<Object> {
     }
 
     public void setValuePerImpression() {
-//        System.out.println(pricePerCampaign + " " + impressionsPerCampaign);
         this.valuePerImpression = (double) pricePerCampaign / (double) impressionsPerCampaign;
-//        System.out.println(valuePerImpression);
     }
 
     public int getNumberOfCampaigns() {

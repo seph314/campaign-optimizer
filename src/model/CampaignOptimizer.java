@@ -31,13 +31,10 @@ public class CampaignOptimizer {
         /* We want to be able to access each part of the details, so we do a comma separated split for each company
         and the build a List of List of Strings */
         for (String company : fileContent) {
-//            System.out.println(company);
             String[] companyArray = company.split("\\s*,\\s*");
             List<String> companyDetails = Arrays.stream(companyArray).collect(Collectors.toList());
             listOfCompanyDetails.add(companyDetails);
         }
-
-//        System.out.println(listOfCompanyDetails);
 
         /* now we can set maxImpressions, because that is now the first element in the first element in the lists */
         maxImpressions = Integer.valueOf(listOfCompanyDetails.get(0).get(0));
@@ -56,17 +53,8 @@ public class CampaignOptimizer {
         }
 
 
-//        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
-//            System.out.println(customerDetails.getCustomerName() + " " + customerDetails.getValuePerImpression());
-//        }
-
         // sort the list by most valuable customer per impression
         listOfCustomerDetails.sort(new SortByValePerImpression());
-
-//        System.out.println("\n");
-//        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
-//            System.out.println(customerDetails.getCustomerName() + " " + customerDetails.getValuePerImpression());
-//        }
 
         maximizeProfit(listOfCustomerDetails);
 
