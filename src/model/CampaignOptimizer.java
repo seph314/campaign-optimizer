@@ -18,13 +18,13 @@ public class CampaignOptimizer {
         List<CustomerCampaignDTO> listOfCustomerDetails = new ArrayList<>();
 
         for (String company : fileContent) {
-            System.out.println(company);
+//            System.out.println(company);
             String[] companyArray = company.split("\\s*,\\s*");
             List<String> companyDetails = Arrays.stream(companyArray).collect(Collectors.toList());
             listOfCompanyDetails.add(companyDetails);
         }
 
-        System.out.println(listOfCompanyDetails);
+//        System.out.println(listOfCompanyDetails);
 
         //set maxImpressions
         maxImpressions = Integer.valueOf(listOfCompanyDetails.get(0).get(0));
@@ -50,10 +50,10 @@ public class CampaignOptimizer {
         // sort the list by most valuable customer per impression
         listOfCustomerDetails.sort(new SortByValePerImpression());
 
-        System.out.println("\n");
-        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
-            System.out.println(customerDetails.getCustomerName() + " " + customerDetails.getValuePerImpression());
-    }
+//        System.out.println("\n");
+//        for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
+//            System.out.println(customerDetails.getCustomerName() + " " + customerDetails.getValuePerImpression());
+//        }
 
         maximizeProfit(listOfCustomerDetails);
 

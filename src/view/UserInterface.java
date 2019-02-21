@@ -34,7 +34,6 @@ public class UserInterface {
     }
 
     private void printResult() {
-        System.out.println("\n");
         int totalNumberOfImpressions = 0;
         int totalRevenue = 0;
         for (CustomerCampaignDTO customerDetails : listOfCustomerDetails){
